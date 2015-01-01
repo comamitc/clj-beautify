@@ -1,36 +1,36 @@
 # clj-beautify
 
-FIXME: description
+`clj-beautify` is a coljure formatter implemented in clojure.  The formatting 
+specification is based on the [clojure style guide].
 
 ## Installation
 
-Download from http://example.com/FIXME.
+???
 
 ## Usage
 
-FIXME: explanation
-
-    $ java -jar clj-beautify-0.1.0-standalone.jar [args]
+???
 
 ## Options
 
-FIXME: listing of options this app accepts.
+???
 
 ## Examples
 
-...
+???
 
 ### Bugs
 
-...
+???
 
-### Any Other Sections
-### That You Think
-### Might be Useful
+### TODO
+
+???
 
 ## License
 
-Copyright © 2015 FIXME
+Copyright © 2015 Mitch Comardo
 
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+The MIT License (MIT)
+
+[clojure style guide]:https://github.com/bbatsov/clojure-style-guide
