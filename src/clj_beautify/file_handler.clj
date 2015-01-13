@@ -11,12 +11,12 @@
   [filename contents]
   (spit filename contents))
 
-(defn match-clj
+(defn- match-clj
   [f]
   (let [filename (.getCanonicalPath f)]
     (when (re-find #"\.clj" filename) filename)))
 
-(defn exists?
+(defn- exists?
   [f]
   (.exists f))
 
