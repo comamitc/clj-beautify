@@ -1,4 +1,4 @@
-(ns clj-beautify.file-handle)
+(ns clj-beautify.file-handler)
 
 (defn read-file
   "Reads an entire file as a string"
