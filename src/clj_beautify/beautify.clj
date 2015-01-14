@@ -32,15 +32,18 @@
 
 (defn- unwrap-comments
   [s]
-  (let [f   (clojure.string/replace s (re-pattern "^\"") ";")
-        b   (clojure.string/replace f (re-pattern "\\)\"$") "")]
-    (clojure.string/replace b (re-pattern "\\(comment ") "")))
+  (let [f   (clojure.string/replace s (re-pattern "\"\\(comment ") ";")]
+    (if (not= s f)
+      ;; then
+      (clojure.string/replace f (re-pattern "\\)\"") "\n")
+      ;; else
+      (str s "\n\n"))))
 
 (defn- literal-to-str
   "Takes valid formatter clojure literal as input and transforms it to a string
   for return to webapp UI"
   [literals]
-   (clojure.string/join "\n\n" (map unwrap-comments literals)))
+   (clojure.string/join "" (map unwrap-comments literals)))
 
 (defn format-clj
   "Clojure formatting function that takes a unformatted-input and format type
