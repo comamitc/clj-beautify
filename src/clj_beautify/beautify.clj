@@ -1,17 +1,25 @@
 (ns clj-beautify.beautify
   (:require [clojure.tools.reader :as r]
+            [clojure.tools.reader.reader-types :as rt]
             [clojure.pprint :refer [write code-dispatch simple-dispatch]]))
 
 ;; Map containing the dispatch modes for various beautifying
 (def dispatch-mode
-  {"clojure" code-dispatch
+  {"clj"     code-dispatch
    "edn"     simple-dispatch})
+
+(defn- read-all
+  [input]
+  (let [eof (Object.)]
+    (take-while #(not= % eof) (repeatedly #(r/read input false eof)))))
 
 (defn str-to-literal!
   "Takes valid clojure as input and transforms it to a clojure literal for
   formating."
   [string]
-  (r/read-string string))
+  (let [test (read-all (rt/string-push-back-reader string))]
+    (println test)
+    test))
 
 (defn- format-literal!
   "Takes a literal and formats it using the built in clojure.pprint/write
@@ -34,4 +42,5 @@
   [input format-type]
   (let [in-lit    (str-to-literal! input)
         formatted (format-literal! in-lit format-type)]
+        (println in-lit)
         (literal-to-str! formatted)))
