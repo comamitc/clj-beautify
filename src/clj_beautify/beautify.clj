@@ -20,19 +20,27 @@
 (defn- read-all
   [input]
   (let [eof (Object.)]
-    (take-while #(not= % eof) (repeatedly #(r/read input false eof)))))
+    (take-while #(not= % eof) (repeatedly #(r/read input false eof false true)))))
 
 (defn str-to-literal
   "Takes valid clojure as input and transforms it to a clojure literal for
   formating."
   [string format-type]
-  (read-all (rt/string-push-back-reader string)))
+  (let [test (read-all (rt/string-push-back-reader string))]
+    (println test)
+    test))
+
+(defn- unwrap-comments
+  [s]
+  (let [f   (clojure.string/replace s (re-pattern "^\"") ";")
+        b   (clojure.string/replace f (re-pattern "\\)\"$") "")]
+    (clojure.string/replace b (re-pattern "\\(comment ") "")))
 
 (defn- literal-to-str
   "Takes valid formatter clojure literal as input and transforms it to a string
   for return to webapp UI"
-  [literal]
-   (clojure.string/join "\n\n" literal))
+  [literals]
+   (clojure.string/join "\n\n" (map unwrap-comments literals)))
 
 (defn format-clj
   "Clojure formatting function that takes a unformatted-input and format type
