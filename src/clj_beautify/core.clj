@@ -1,12 +1,12 @@
 (ns clj-beautify.core
   (:require [clj-beautify.file-handler :as f]
-            [clj-beautify.beautify :refer [format-clj!]])
+            [clj-beautify.beautify :refer [format-clj]])
   (:gen-class))
 
 (defn format-file
   [filename mode]
   (let [input   (f/read-file filename)
-        output  (format-clj! input mode)]
+        output  (format-clj input mode)]
     (f/write-file filename output)))
 
 ;; TODO:
