@@ -14,5 +14,5 @@
 
 ;; this is a edn data structure
 (def foo
- (:foo "bar" :baz "bar" :feebs "babababab" :howmanymore "THIS MIGHT" :onemore "howdy"))
+ {:foo "bar" :baz "bar" :feebs "babababab" :howmanymore "THIS MIGHT" :onemore "howdy"})
 
