@@ -6,7 +6,7 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [rewrite-clj "0.4.1"]]
   :main ^:skip-aot clj-beautify.core
-  :source-paths ["src" "../tools.reader/src/main/clojure"]
+  :source-paths ["src" "./contrib/tools.reader/src/main/clojure"]
   :aot [clojure.tools.reader.impl.ExceptionInfo]
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})
