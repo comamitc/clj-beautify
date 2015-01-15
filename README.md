@@ -7,26 +7,32 @@ specification is based on the `clojure.pprint/write` function.
 
 As a dependency in a clojure project:
 
-    [clj-beautify "0.1.0"]
+```clojure
+[clj-beautify "0.1.0"]
+```
 
 As a standalone cli tool
 
-    ;; TODO
+```sh
+git clone https://github.com/comamitc/clj-beautify.git
+cd clj-beautify
+lein uberjar
+```
 
 ## Usage
 
 As a standalone cli tool:
 
 ```sh
-lein run clj ./path/or/file/to/scan
+./clj-beautify.sh clj ./path/or/file/to/scan
 ```
 
 As a library:
 
-    (:require [clj-beautify.core :refer [format-file]])
-
-    (format-file "./path/or/file/to/scan" "clj") ;; can be "clj" or "edn"
-
+```clojure
+(:require [clj-beautify.core :refer [format-file]])
+(format-file "./path/or/file/to/scan" "clj") ;; can be "clj" or "edn"
+```
 
 ## License
 
