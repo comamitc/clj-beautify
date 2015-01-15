@@ -624,7 +624,7 @@
     \{ read-set
     \< (throwing-reader "Unreadable form")
     \" read-regex
-    \! read-comment
+    \! (if @preserve-comments? read-comment ignore-comment)
     \_ read-discard
     nil))
 
@@ -736,7 +736,7 @@
   ([] (read *in*))
   ([reader] (read reader true nil true))
   ([reader eof-error? sentinel] (read reader eof-error? sentinel false true))
-  ([reader eof-error? sentinel recursive?] 
+  ([reader eof-error? sentinel recursive?]
     (read reader eof-error? sentinel recursive? true))
   ([reader eof-error? sentinel recursive? comments]
      (when (= :unknown *read-eval*)

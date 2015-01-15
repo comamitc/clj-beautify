@@ -123,7 +123,6 @@
 
 (defn read-comment
   [reader & c]
-  ;;(skip-line rdr)
   (loop [sb (StringBuilder.)
          ch (read-char reader)]
     (case ch
