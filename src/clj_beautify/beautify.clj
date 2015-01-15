@@ -30,9 +30,11 @@
     (println test)
     test))
 
+;; TODO: not sure of the performance reprocussions of regex string replacement
 (defn- unwrap-comments
   [s]
-  (let [f (clojure.string/replace s (re-pattern "\"\\(comment ") ";")] ;; TODO: could also be ! token
+  ;; TODO: could also be ! token
+  (let [f (clojure.string/replace s (re-pattern "\"\\(comment ") ";")]
     (if (not= s f)
       ;; then
       (clojure.string/replace f (re-pattern "\\)\"(\n)?") "\n")
