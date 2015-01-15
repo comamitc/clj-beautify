@@ -1,4 +1,4 @@
-(defproject clj-beautify "0.1.0-SNAPSHOT"
+(defproject clj-beautify "0.1.0"
   :description "A clojure formatter written in Clojure"
   :url "http://example.com/FIXME"
   :license {:name "The MIT License (MIT)"

@@ -22,7 +22,7 @@
   (let [eof (Object.)]
     (take-while #(not= % eof) (repeatedly #(r/read input false eof false true)))))
 
-(defn str-to-literal
+(defn- str-to-literal
   "Takes valid clojure as input and transforms it to a clojure literal for
   formating."
   [string format-type]

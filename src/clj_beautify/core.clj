@@ -4,6 +4,10 @@
   (:gen-class))
 
 (defn format-file
+  "Given a file page and a valid mode (`clj`|`edn`) open and use
+  `clojure.tools.reader/read-string` to transform the file to a literal so that
+  if can be formatted by `clojure.pprint/write`. It then writes back to the same
+  file with a formatted string."
   [filename mode]
   (let [input   (f/read-file filename)
         output  (format-clj input mode)]
@@ -11,9 +15,9 @@
 
 ;; TODO:
 (defn -main
-  "Entry point of the command line program.
-   (0 args) -> represents the mode to open the program in (clj or edn)
-   (1 args) -> represents the file or directory to walk for formatting"
+  "Entry point of the command line program that takes a file path (or directory)
+  and mode (clj|edn). Formats all files to specified mode and rewrites the
+  original files."
   [& args]
   (let [arg-cnt (count args)]
     (when (< 2 arg-cnt)
