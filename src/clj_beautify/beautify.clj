@@ -35,7 +35,10 @@
   (let [f (clojure.string/replace s (re-pattern "\"\\(comment ") ";")]
     (if (not= s f)
       ;; then
-      (clojure.string/replace f (re-pattern "\\)\"(\n)?") "\n")
+      (let [x (clojure.string/replace f (re-pattern "\\)\"(\n)?") "\n")]
+        (if (.startsWith x ";")
+          x
+          (str x "\n\n")))
       ;; else
       (str s "\n\n"))))
 
