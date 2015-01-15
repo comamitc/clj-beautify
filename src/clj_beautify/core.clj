@@ -3,6 +3,11 @@
             [clj-beautify.beautify :refer [format-clj]])
   (:gen-class))
 
+(defn format-string
+  "Just a function wrapper arond format-clj"
+  [input mode]
+  (format-clj input mode))
+
 (defn format-file
   "Given a file page and a valid mode (`clj`|`edn`) open and use
   `clojure.tools.reader/read-string` to transform the file to a literal so that
@@ -10,7 +15,7 @@
   file with a formatted string."
   [filename mode]
   (let [input   (f/read-file filename)
-        output  (format-clj input mode)]
+        output  (format-string input mode)]
     (f/write-file filename output)))
 
 (defn -main
