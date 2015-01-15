@@ -13,7 +13,6 @@
         output  (format-clj input mode)]
     (f/write-file filename output)))
 
-;; TODO:
 (defn -main
   "Entry point of the command line program that takes a file path (or directory)
   and mode (clj|edn). Formats all files to specified mode and rewrites the
