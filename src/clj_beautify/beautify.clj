@@ -26,9 +26,7 @@
   "Takes valid clojure as input and transforms it to a clojure literal for
   formating."
   [string format-type]
-  (let [test (read-all (rt/string-push-back-reader string))]
-    (println test)
-    test))
+  (read-all (rt/string-push-back-reader string)))
 
 ;; TODO: not sure of the performance reprocussions of regex string replacement
 (defn- unwrap-comments
