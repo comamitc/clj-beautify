@@ -14,6 +14,8 @@
 (defn a-test [] ;; comments 2
   (testing "FIXME, I fail." (is (= 0 1))))
 
+(defn add [x y] (+ x y))
+
 ;; this is a edn data structure
 (def foo
  {:foo "bar",
