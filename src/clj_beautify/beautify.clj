@@ -32,12 +32,14 @@
 (defn- unwrap-comments
   [s]
   ;; TODO: could also be ! token
-  (let [f (clojure.string/replace s (re-pattern "\"\\(comment ") ";")]
+  (let [f (clojure.string/replace s (re-pattern "\\(comment \"") ";")]
     (if (not= s f)
       ;; then
-      (let [x (clojure.string/replace f (re-pattern "\\)\"(\n)?") "\n")]
+      (let [x (clojure.string/replace f (re-pattern "\"\\)(\n)?") "\n")]
         (if (.startsWith x ";")
           x
+          ;;(let [y (clojure.string/replace x (re-pattern "\n(\\s*);;") " ;;")]
+          ;;  (str y "\n\n"))
           (str x "\n\n")))
       ;; else
       (str s "\n\n"))))

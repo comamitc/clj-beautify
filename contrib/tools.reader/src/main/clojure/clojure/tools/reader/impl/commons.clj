@@ -126,7 +126,7 @@
   (loop [sb (StringBuilder.)
          ch (read-char reader)]
     (case ch
-      \newline (str "(comment " sb ")")
+      \newline (read-string (str "(comment \"" sb "\")"))
       (recur (doto sb (.append ch)) (read-char reader)))))
 
 (defn throwing-reader
