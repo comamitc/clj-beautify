@@ -31,7 +31,7 @@
 ;; TODO: not sure of the performance reprocussions of regex string replacement
 (defn- unwrap-comments
   [s]
-  ;; TODO: could also be ! token
+  ;; TODO: could also be ! token according to the reader
   (let [f (clojure.string/replace s (re-pattern "\\(comment \"") ";")]
     (if (not= s f)
       ;; then

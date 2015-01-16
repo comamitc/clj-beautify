@@ -4,7 +4,8 @@
 
 ;; comments
 ;; comments again
-(defn a-test [] ;; comments 2
+(defn a-test
+  [] ;; comments 2
   ;; comment 2.5
   (testing "FIXME, I fail." (is (= 0 1))) ;; comments 3
 )
