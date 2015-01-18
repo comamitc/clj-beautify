@@ -346,14 +346,18 @@
   (log-source rdr
     (let [[line column] (starting-line-col-info rdr)
           m (desugar-meta (read rdr true nil true))]
+      ;;(println m)
       (when-not (map? m)
         (reader-error rdr "Metadata must be Symbol, Keyword, String or Map"))
       (let [o (read rdr true nil true)]
+        (println o)
         (if (instance? IMeta o)
           (let [m (if (and line (seq? o))
                     (assoc m :line line :column column)
                     m)]
+            (println m)
             (if (instance? IObj o)
+              ;;(str "(meta " (meta (with-meta o (merge (meta o) m))) ")")
               (with-meta o (merge (meta o) m))
               (reset-meta! o m)))
           (reader-error rdr "Metadata can only be applied to IMetas"))))))

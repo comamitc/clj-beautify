@@ -28,27 +28,48 @@
   [string format-type]
   (read-all (rt/string-push-back-reader string)))
 
+(defn- unwrap-meta
+  [s]
+  (println s)
+  (let [*pattern* (re-pattern "\"\\(meta.*\\)\"")
+        *matcher* (re-matcher *pattern* s)
+        found (re-find *matcher*)]
+        (println found)
+        (if found
+          (let [f (clojure.string/replace found (re-pattern "\"\\(meta ") "\\^")
+                segment (clojure.string/replace f (re-pattern "\\)\"") "")
+                final (clojure.string/replace s *pattern* segment)]
+                (println f)
+                (println segment)
+                (println final)
+                final)
+          s)))
+
 ;; TODO: not sure of the performance reprocussions of regex string replacement
 (defn- unwrap-comments
   [s]
-  ;; TODO: could also be ! token according to the reader
-  (let [f (clojure.string/replace s (re-pattern "\\(comment \"") ";")]
+  ;; TODO: could also be ! token
+  (let [f (clojure.string/replace s (re-pattern "\"\\(comment ") ";")]
     (if (not= s f)
       ;; then
-      (let [x (clojure.string/replace f (re-pattern "\"\\)(\n)?") "\n")]
+      (let [x (clojure.string/replace f (re-pattern "\\)\"(\n)?") "\n")]
         (if (.startsWith x ";")
           x
-          ;;(let [y (clojure.string/replace x (re-pattern "\n(\\s*);;") " ;;")]
-          ;;  (str y "\n\n"))
           (str x "\n\n")))
       ;; else
       (str s "\n\n"))))
+
+(defn- unwrap-specials
+  [s]
+  (let [comments (unwrap-comments s)
+        metas    (unwrap-meta comments)]
+        metas))
 
 (defn- literal-to-str
   "Takes valid formatter clojure literal as input and transforms it to a string
   for return to webapp UI"
   [literals]
-   (clojure.string/join "" (map unwrap-comments literals)))
+   (clojure.string/join "" (map unwrap-specials literals)))
 
 (defn format-clj
   "Clojure formatting function that takes a unformatted-input and format type

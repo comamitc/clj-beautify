@@ -24,3 +24,7 @@
   :howmanymore "THIS MIGHT",
   :onemore "howdy"})
 
+(defn  ^{:private true :doc "hello"} foo [x] "bar")
+
+(defn foo (meta private) [] "bar")
+
