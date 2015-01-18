@@ -358,7 +358,8 @@
             (println m)
             (if (instance? IObj o)
               ;;(str "(meta " (meta (with-meta o (merge (meta o) m))) ")")
-              (with-meta o (merge (meta o) m))
+              (let [sym (with-meta o (merge (meta o) m))]
+                (str "(meta " (meta sym) " " sym ")"))
               (reset-meta! o m)))
           (reader-error rdr "Metadata can only be applied to IMetas"))))))
 
