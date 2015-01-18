@@ -346,7 +346,6 @@
   (log-source rdr
     (let [[line column] (starting-line-col-info rdr)
           m (desugar-meta (read rdr true nil true))]
-      ;;(println m)
       (when-not (map? m)
         (reader-error rdr "Metadata must be Symbol, Keyword, String or Map"))
       (let [o (read rdr true nil true)]
