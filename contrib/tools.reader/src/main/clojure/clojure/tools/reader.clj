@@ -350,12 +350,10 @@
       (when-not (map? m)
         (reader-error rdr "Metadata must be Symbol, Keyword, String or Map"))
       (let [o (read rdr true nil true)]
-        (println o)
         (if (instance? IMeta o)
           (let [m (if (and line (seq? o))
                     (assoc m :line line :column column)
                     m)]
-            (println m)
             (if (instance? IObj o)
               ;;(str "(meta " (meta (with-meta o (merge (meta o) m))) ")")
               (let [sym (with-meta o (merge (meta o) m))]
