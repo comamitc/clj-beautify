@@ -2,7 +2,7 @@
   (:refer-clojure :exclude [read-string *default-data-reader-fn* read])
   (:use [clojure.tools.reader :only [read *default-data-reader-fn* read-string]]
         [clojure.test :only [deftest is]])
-  (:require [clojure.tools.reader.reader-types 
+  (:require [clojure.tools.reader.reader-types
     :refer [string-push-back-reader]])
   (:import clojure.lang.BigInt))
 
@@ -259,5 +259,5 @@
 
 (deftest read-comment
   (is (thrown? Exception (read-string ";; foo\n")))
-  (is (= ";; foo" 
+  (is (= '(comment "; foo")
          (read (string-push-back-reader ";; foo\n") true nil false true))))

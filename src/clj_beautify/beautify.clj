@@ -28,6 +28,17 @@
   [string format-type]
   (read-all (rt/string-push-back-reader string)))
 
+(defn- unwrap-meta
+  [s]
+  (let [*pattern* (re-pattern "\"\\(meta.*\\)\"")
+        *matcher* (re-matcher *pattern* s)
+        found (re-find *matcher*)]
+        (if found
+          (let [f (clojure.string/replace found (re-pattern "\"\\(meta ") "\\^")
+                segment (clojure.string/replace f (re-pattern "\\)\"") "")]
+                final (clojure.string/replace s *pattern* segment))
+          s)))
+
 ;; TODO: not sure of the performance reprocussions of regex string replacement
 (defn- unwrap-comments
   [s]
@@ -42,11 +53,17 @@
       ;; else
       (str s "\n\n"))))
 
+(defn- unwrap-specials
+  [s]
+  (let [comments (unwrap-comments s)
+        metas    (unwrap-meta comments)]
+        metas))
+
 (defn- literal-to-str
   "Takes valid formatter clojure literal as input and transforms it to a string
   for return to webapp UI"
   [literals]
-   (clojure.string/join "" (map unwrap-comments literals)))
+   (clojure.string/join "" (map unwrap-specials literals)))
 
 (defn format-clj
   "Clojure formatting function that takes a unformatted-input and format type

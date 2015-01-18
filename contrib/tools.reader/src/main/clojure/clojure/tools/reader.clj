@@ -354,7 +354,9 @@
                     (assoc m :line line :column column)
                     m)]
             (if (instance? IObj o)
-              (with-meta o (merge (meta o) m))
+              ;;(str "(meta " (meta (with-meta o (merge (meta o) m))) ")")
+              (let [sym (with-meta o (merge (meta o) m))]
+                (str "(meta " (meta sym) " " sym ")"))
               (reset-meta! o m)))
           (reader-error rdr "Metadata can only be applied to IMetas"))))))
 
