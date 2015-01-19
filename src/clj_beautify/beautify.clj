@@ -55,9 +55,9 @@
 
 (defn- unwrap-specials
   [s]
-  (let [comments (unwrap-comments s)
-        metas    (unwrap-meta comments)]
-        metas))
+  (-> s
+    unwrap-comments
+    unwrap-meta))
 
 (defn- literal-to-str
   "Takes valid formatter clojure literal as input and transforms it to a string
