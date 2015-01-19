@@ -36,7 +36,7 @@
         (if found
           (let [f (clojure.string/replace found (re-pattern "\"\\(meta ") "\\^")
                 segment (clojure.string/replace f (re-pattern "\\)\"") "")]
-                final (clojure.string/replace s *pattern* segment))
+                (clojure.string/replace s *pattern* segment))
           s)))
 
 ;; TODO: not sure of the performance reprocussions of regex string replacement
