@@ -15,6 +15,7 @@
   (write literal
          :pretty true
          :stream nil
+         :right-margin 40
          :dispatch (get dispatch-mode format-type)))
 
 (defn- read-all

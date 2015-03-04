@@ -4,7 +4,7 @@
   (:gen-class))
 
 (defn format-string
-  "Just a function wrapper arond format-clj"
+  "Just a function wrapper around format-clj"
   [input mode]
   (format-clj input mode))
 
