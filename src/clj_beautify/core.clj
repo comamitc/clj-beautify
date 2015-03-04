@@ -5,8 +5,8 @@
 
 (defn format-string
   "Just a function wrapper around format-clj"
-  [input mode]
-  (format-clj input mode))
+  ([input mode] (format-string input mode nil))
+  ([input mode settings] (format-clj input mode settings)))
 
 (defn format-file
   "Given a file page and a valid mode (`clj`|`edn`) open and use
@@ -15,7 +15,7 @@
   file with a formatted string."
   [filename mode]
   (let [input   (f/read-file filename)
-        output  (format-string input mode)]
+        output  (format-clj input mode)]
     (f/write-file filename output)))
 
 (defn -main
