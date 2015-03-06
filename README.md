@@ -8,7 +8,7 @@ specification is based on the `clojure.pprint/write` function.
 As a dependency in a clojure project:
 
 ```clojure
-[clj-beautify "0.1.1"]
+[clj-beautify "0.1.2"]
 ```
 
 As a standalone cli tool

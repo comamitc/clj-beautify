@@ -1,21 +1,36 @@
 (ns clj-beautify.beautify
   (:require [clojure.tools.reader :as r]
             [clojure.tools.reader.reader-types :as rt]
-            [clojure.pprint :refer [write code-dispatch simple-dispatch]]))
+            [clojure.pprint :refer :all]))
 
-;; Map containing the dispatch modes for various beautifying
 (def dispatch-mode
   {"clj"     code-dispatch
    "edn"     simple-dispatch})
 
+(def default-settings {:right-margin        *print-right-margin*
+                       :miser-width         *print-miser-width*  
+                       :base                *print-base*
+                       :length              *print-length*
+                       :level               *print-level*
+                       :radix               *print-radix*
+                       :suppress-namespaces *print-suppress-namespaces*
+                       :pretty              *print-pretty*})
+
 (defn- format-literal
   "Takes a literal and formats it using the built in clojure.pprint/write
   function. Returns a formatted literal."
-  [literal format-type]
-  (write literal
-         :pretty true
-         :stream nil
-         :dispatch (get dispatch-mode format-type)))
+  [literal format-type settings]
+  (let [presets (merge default-settings settings)]
+    (write literal
+           :pretty              (:pretty presets)
+           :stream              nil
+           :right-margin        (:right-margin presets)
+           :miser-width         (:miser-width presets)
+           :base                (:base presets)
+           :length              (:length presets)
+           :radix               (:radix presets)
+           :suppress-namespace  (:suppress-namespace presets)
+           :dispatch            (get dispatch-mode format-type))))
 
 (defn- read-all
   [input]
@@ -68,7 +83,7 @@
 (defn format-clj
   "Clojure formatting function that takes a unformatted-input and format type
   and transforms it into a formatted output using clojure.pprint/write."
-  [input format-type]
+  [input format-type settings]
   (let [in-lits  (str-to-literal input format-type)
-       formatted (map #(format-literal % format-type) in-lits)]
+       formatted (map #(format-literal % format-type settings) in-lits)]
         (literal-to-str formatted)))
