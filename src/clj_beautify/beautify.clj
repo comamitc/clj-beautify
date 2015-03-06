@@ -3,7 +3,6 @@
             [clojure.tools.reader.reader-types :as rt]
             [clojure.pprint :refer :all]))
 
-;; Map containing the dispatch modes for various beautifying
 (def dispatch-mode
   {"clj"     code-dispatch
    "edn"     simple-dispatch})
